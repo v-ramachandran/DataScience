@@ -1,0 +1,65 @@
+#################################
+# Venketaram Ramachandran       #
+# CS194 - Data Science          #
+# 20490381                      #
+# v.ramachandran28@berkeley.edu #
+#################################
+
+**** NOTE: I've included code run in main.py to answer these questions. However, they are encased in a if statement. Make the appropriate
+           variable (i.e. qa_1 for answer to question 1) at the top of the document True to run the code.
+
+###############################
+#    Answers to Questions     #
+###############################
+
+1. Are there any outliers in the contribution amount column?
+
+   Yes. Although the mean and std. dev. indicate a bit of skew, the maximum value of column, 1.944e+6, is a significant amount and several  std. deviations away from the general center of the distribution. In addition, analysis indicates that the 99.9th percentile of the data is approximately 5000. However, the histogram from Q8) indicates 
+that there are 23 values between 10,000 and 10,000,000. Clearly, there are some outliers here.
+
+2. In num_donors() we assume people have unique names (i.e. no two person share the same name). Can you find examples of donation records that violate this assumption, and to what degree can we trust this assumption?
+   
+   Some violating records include: 
+    ** #1 and #14209 regarding the name "Harvey, William"
+    ** #136621 and #16 regarding the name "Miller, William"
+    
+   We see that (through the querying and set manipulation in a1.py at the appropriate qa_2 section), there are approximately 10,354 cases where in some ('name', 'zipcode')   pair, the name of that pair is already in some other ('name', 'zipcode') pair (not counting the initial ('name', 'zipcode') pair that had that name. We thus see that this
+uniqueness assumption violates 10,354 cases. Here, I make a second assumption that this indicates different people and not some circumstance (i.e. people moved). While, overall, the 10,354 cases is a fraction of the 429,709 total records (i.e. around 2.5%), it is a fair assumption to make in looking at the generalized picture of the dataset, but clearly is NOT 100% representative. It is also important to note that there could also be other differences (such as same name, same zipcode, but different location) as well as differences that cannot be captured by the dataset (i.e. same name, same zipcode, same location, same empoyer etc. but different people). As such, for general pictures of the dataset, this assumption should not cause a significant error but is not 100% correct.
+
+3. In how many states are President Obama the top candidate (by total amount of donations received)? Does this mean Obama is going to win the election?
+
+   The data shows that in forty one states President Obama is the top candidate. However, this doesn't mean that president Obama is going to win. For one, there are several states in the data that are not technically states of the United States at all, with the states having a cumulative total of 70. Being the top candidate in these states, doesn't mean much. In addition, being the top candidate here does not guarantee victory as this is simply donation support and doesn't entirely reflect upon those who will vote but have not donated.
+
+4. In how many states have Republican candidates received more donations than President Obama?
+
+   This was true in 29 states as per the data.
+
+5. Explore the data on your own and jot down three interesting things you find.
+
+   I found that there were FOUR different instances of entries with ZERO contribution amounts. In essence, these amounts dont contribute as refunds or donations and is quite surprising that they exist in this data set without any true purpose.
+
+   Secondly, I tried to find the impact of the unemployed (i.e. either occupation or employer is listed as "NOT EMPLOYED") on the donation amounts. I was surprised to find that approximately 5881 unemployed people raised 3257606.86 dollars which is nearly 2% of the entire amount of donations raised. Nearly 3.22 million of that was for in support of President Obama. From the population of unemployed from this dataset, we can say that they are in favor of President Obama.
+
+   Thirdly, I tried to compute a "histogrammic" comparison between Republican candidates, Libertarian candidates, and Obama in terms of donation support and count. The histograms are pasted below. I suprisingly found that Libertarians, at least based off of this data, received almost NO support when compared to the Democrats and Republicans. The support they received does not exceed the 10,000 range, with the donations having a high frequency in the 100 - 1,000 dollar range. The republicans, in comparison, received far more support, with 175,626 total donations and having the highest frequency of donations in the $1000 - $10,000 range. Obama, on the other hand, received the most support in total, with 248,441 total donations and also having the highest frequency of donations in the $1000 - $10,000 range. However, he also had donations in the millions, easily giving him the largest TOTAL donation amount as well as the most total financial support through donations, not counting refunds.
+   
+Obama Histogram
+[    65   3196 107563 115984  21628      2      1      2]
+Republican Histogram
+[    0  1519 37007 94577 42506    18     0     0]
+Libertarian Histogram
+[  1   0 103 445 153   0   0   0]
+
+###############################
+#       My Assumptions        #
+###############################
+
+Q1) From the website with the data, I discerned that Obama is Democrat, Gary Earl Johnson is Libertarian, and the rest of the listed names on the website are Republican.
+Q2) From Coursekit as well as my interpretation of the question and data, I assumed that the number of donation records included ALL donations (any positive contribution value), refunds (any negative contribution value), and ZERO valued entries.
+Q3) I took "refund" to mean any contb_receipt_amt value < 0
+Q4) I took this to mean people who received refunds as well as mentioned in Coursekit as well as my interpretation.
+Q5) I took this to mean "the candidate who has the most number of distinct donors in a state." Since there is a possibility of bipartisan donors, I counted the donor once for each distinct candidate they donated for, when computing the TOTAL donors in a state. I defined a donor from the clarification posted on Coursekit for #2 as anyone involved in a monetary transaction, either it is as one who has donated or a one who is refunded.
+Q6) Since the question mentions "receiving" the most donation amounts, I only counted POSITIVE contb_receipt_amt amounts (which I define as donating).
+Q7) Similar assumptions to question 5, except replace candidate with party.
+Q8) Similar assumptions to question 6, except replace candidate with party.
+Q9) 
+Q10) I assumed that the highest number of trailing decimals when definiting monetary value is 2 as is standard. 
